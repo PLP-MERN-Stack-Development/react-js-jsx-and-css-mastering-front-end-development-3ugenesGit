@@ -1,7 +1,6 @@
-// src/components/Navbar.jsx
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeContext } from '../context/ThemeContext'; // From Task 3
+import { ThemeContext } from '../context/ThemeContext'; 
 import Button from './Button';
 
 const Navbar = () => {
