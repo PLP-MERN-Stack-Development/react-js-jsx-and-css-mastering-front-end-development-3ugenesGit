@@ -1,18 +1,28 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Navbar from './Navbar';
-import Footer from './Footer';
 
-const Layout = () => {
+// import { Outlet } from 'react-router-dom';
+import React from 'react';
+import Navbar from './Navbar.jsx';
+import Footer from './Footer.jsx';
+
+/**
+ * A layout component that wraps page content with Navbar and Footer.
+ *
+ * @param {object} props - The component props.
+ * @param {React.ReactNode} props.children - The page content to be rendered.
+ */
+function Layout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
-      <main className="container mx-auto p-4 flex-grow">
-        <Outlet /> {/* Page content will be rendered here */}
+      
+      {/* Main content area */}
+      <main className="flex-grow container mx-auto p-4 md:p-6">
+        {children}
       </main>
+
       <Footer />
     </div>
   );
-};
+}
 
 export default Layout;

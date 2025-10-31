@@ -1,17 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Footer = () => {
+function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-400 p-6 mt-auto">
-      <div className="container mx-auto text-center">
-        <p>&copy; {new Date().getFullYear()} MyApp. All rights reserved.</p>
-        <div className="flex justify-center space-x-4 mt-2">
-          <a href="#" className="hover:text-blue-600">Privacy Policy</a>
-          <a href="#" className="hover:text-blue-600">Terms of Service</a>
+    <footer className="bg-gray-800 text-gray-300 mt-12 py-8">
+      <div className="container mx-auto px-4 text-center">
+        <div className="flex justify-center space-x-6 mb-4">
+          <Link to="/" className="hover:text-white">
+            Home
+          </Link>
+          <Link to="/about" className="hover:text-white">
+            About
+          </Link>
+          {/* Add other footer links */}
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white"
+          >
+            GitHub
+          </a>
         </div>
+        <p>&copy; {currentYear} ReactApp. All rights reserved.</p>
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;
