@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
+import Card from './Card';
 import Button from './Button';
 
 /**

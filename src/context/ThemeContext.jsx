@@ -1,27 +1,31 @@
-import React, { createContext, useEffect } from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import React, { createContext, useContext } from 'react';
+import useLocalStorage from './useLocalStorage'; // Use the new custom hook
 
-export const ThemeContext = createContext();
+// 1. Create the Context
+const ThemeContext = createContext();
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useLocalStorage('theme', 'light');
+// 2. Custom hook for consuming the context
+export const useTheme = () => useContext(ThemeContext);
 
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-  }, [theme]);
+// 3. Theme Provider Component
+export function ThemeProvider({ children }) {
+  // Use the custom hook to persist the theme preference
+  const [isDarkMode, setIsDarkMode] = useLocalStorage('theme', false);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    setIsDarkMode(prev => !prev);
   };
 
+  const themeClasses = isDarkMode 
+    ? 'bg-gray-900 text-gray-50' 
+    : 'bg-gray-50 text-gray-800';
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+      {/* Apply the theme classes to the highest level for global styling */}
+      <div className={`min-h-screen transition-colors duration-300 ${themeClasses}`}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
-};
+}

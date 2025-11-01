@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 import { Rocket } from 'lucide-react'; // Using lucide-react for a simple icon
 
 function Navbar() {
