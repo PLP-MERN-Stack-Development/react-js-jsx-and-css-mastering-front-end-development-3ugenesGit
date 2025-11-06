@@ -1,6 +1,7 @@
 
 import { Outlet } from 'react-router-dom';
 import React from 'react';
+import { useTheme } from '../context/ThemeContext';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 
@@ -11,8 +12,12 @@ import Footer from './Footer.jsx';
  * @param {React.ReactNode} props.children - The page content to be rendered.
  */
 function Layout({ children }) {
+  const { isDarkMode } = useTheme?.() || { isDarkMode: false };
+  const baseClasses = isDarkMode
+    ? 'flex flex-col min-h-screen bg-black text-white'
+    : 'flex flex-col min-h-screen bg-white text-gray-900';
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className={baseClasses}>
       <Navbar />
       
       {/* Main content area */}

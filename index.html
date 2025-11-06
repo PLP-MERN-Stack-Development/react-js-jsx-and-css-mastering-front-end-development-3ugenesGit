@@ -8,6 +8,27 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('isDarkMode');
+          if (saved === null) saved = localStorage.getItem('theme');
+          var isDark = false;
+          if (saved != null) {
+            try {
+              var parsed = JSON.parse(saved);
+              isDark = parsed === true;
+            } catch (e) {
+              var s = String(saved).toLowerCase();
+              isDark = s === 'true' || s === 'dark';
+            }
+          }
+          var root = document.documentElement;
+          if (isDark) root.classList.add('dark');
+          else root.classList.remove('dark');
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
