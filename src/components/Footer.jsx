@@ -11,10 +11,10 @@ function Footer() {
           <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400">
             Home
           </Link>
-          <Link to="/tasks" className="hover:text-blue-600 dark:hover:text-blue-400">
+          <Link to="/Tasks" className="hover:text-white">
             Tasks
           </Link>
-          <Link to="/posts" className="hover:text-blue-600 dark:hover:text-blue-400">
+          <Link to="/Posts" className="hover:text-white">
             Posts
           </Link>
           

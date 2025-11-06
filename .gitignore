@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# System folders
+AppData/
+Documents/
+Downloads/
+OneDrive/
+*.lnk
+*.mp4
+*.DAT
+*.regtrans-ms

@@ -4,8 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import PropTypes from 'prop-types';
 import { Rocket } from 'lucide-react'; // Using lucide-react for a simple icon
 
-function Navbar() {
-  const { isDarkMode, toggleTheme } = useTheme();
+function Navbar({onToggleTheme, isDark}) {
   // Helper function for NavLink active state
   const getNavLinkClass = ({ isActive }) => {
     return isActive
@@ -44,16 +43,22 @@ function Navbar() {
           </li>
           
           <button
-            onClick={toggleTheme}
-            className="px-3 py-1.5 text-sm rounded border"
+            onClick={onToggleTheme}
+            className="px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-black dark:text-blue-100 hover:bg-gray-100 dark:hover:bg-neutral-700"
             aria-label="Toggle dark mode"
           >
-            {isDarkMode ? "Light" : "Dark"} Mode
+            {isDark ? "Light" : "Dark"} Mode
           </button>
         </ul>
       </div>
     </nav>
   );
 };
+
+Navbar.propTypes = {
+  onToggleTheme: PropTypes.func.isRequired,
+  isDark: PropTypes.bool.isRequired,
+};
+
 
 export default Navbar;

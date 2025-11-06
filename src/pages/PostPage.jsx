@@ -78,16 +78,16 @@ const PostsPage = () => {
           setSearchTerm(e.target.value);
           setCurrentPage(1); // Reset to first page on search
         }}
-        className="w-full max-w-lg mx-auto block p-3 border rounded-md mb-8"
+        className="w-full max-w-lg mx-auto block p-3 border rounded-md mb-8 dark:bg-gray-700 dark:border-gray-600"
       />
 
       {/* Grid Layout (Responsive) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {currentUsers.map(user => (
           <Card key={user.id} className="transition-all hover:shadow-lg">
-            <h2 className="text-2xl font-semibold">{user.name}</h2>
-            <p>{user.email}</p>
-            <p className="mt-2">{user.company.name}</p>
+            <h2 className="text-2xl font-semibold text-blue-600 dark:text-blue-400">{user.name}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
+            <p className="text-gray-500 mt-2">{user.company.name}</p>
           </Card>
         ))}
       </div>
