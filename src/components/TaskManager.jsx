@@ -73,43 +73,43 @@ const TaskManager = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-      <h2 className="text-2xl font-bold mb-6">Task Manager</h2>
+    <div className="rounded-lg shadow p-4">
+      <h2 className="text-xl font-bold mb-4">Task Manager</h2>
 
       {/* Task input form */}
-      <form onSubmit={handleSubmit} className="mb-6">
+      <form onSubmit={handleSubmit} className="mb-4">
         <div className="flex gap-2">
           <input
             type="text"
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)}
             placeholder="Add a new task..."
-            className="flex-grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+            className="flex-grow px-3 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-700 dark:border-gray-600"
           />
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="secondary">
             Add Task
           </Button>
         </div>
       </form>
 
       {/* Filter buttons */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-3">
         <Button
-          variant={filter === 'all' ? 'primary' : 'secondary'}
+          variant={filter === 'all' ? 'secondary' : 'outline'}
           size="sm"
           onClick={() => setFilter('all')}
         >
           All
         </Button>
         <Button
-          variant={filter === 'active' ? 'primary' : 'secondary'}
+          variant={filter === 'active' ? 'secondary' : 'outline'}
           size="sm"
           onClick={() => setFilter('active')}
         >
           Active
         </Button>
         <Button
-          variant={filter === 'completed' ? 'primary' : 'secondary'}
+          variant={filter === 'completed' ? 'secondary' : 'outline'}
           size="sm"
           onClick={() => setFilter('completed')}
         >
@@ -118,23 +118,23 @@ const TaskManager = () => {
       </div>
 
       {/* Task list */}
-      <ul className="space-y-2">
+      <ul className="space-y-1">
         {filteredTasks.length === 0 ? (
-          <li className="text-gray-500 dark:text-gray-400 text-center py-4">
+          <li className="text-gray-500 dark:text-gray-400 text-center py-3">
             No tasks found
           </li>
         ) : (
           filteredTasks.map((task) => (
             <li
               key={task.id}
-              className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 dark:border-gray-700"
+              className="flex items-center justify-between p-2 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 dark:border-gray-700"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
                   checked={task.completed}
                   onChange={() => toggleTask(task.id)}
-                  className="h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
+                  className="h-4 w-4 text-gray-600 rounded focus:ring-gray-500"
                 />
                 <span
                   className={`${
@@ -158,7 +158,7 @@ const TaskManager = () => {
       </ul>
 
       {/* Task stats */}
-      <div className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+      <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
         <p>
           {tasks.filter((task) => !task.completed).length} tasks remaining
         </p>

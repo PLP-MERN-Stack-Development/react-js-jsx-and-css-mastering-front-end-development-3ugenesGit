@@ -1,21 +1,24 @@
 import React from 'react';
+import { useTheme } from '../context/ThemeContext';
 
-/**
- * A reusable card component for boxed content.
- *
- * @param {object} props - The component props.
- * @param {React.ReactNode} props.children - The content inside the card.
- * @param {string} [props.title] - An optional title for the card.
- * @param {string} [props.className] - Additional Tailwind classes for the card container.
- */
 function Card({ children, title, className = '' }) {
+  const { isDarkMode } = useTheme();
+
+  const cardClasses = isDarkMode
+    ? 'bg-neutral-900 text-white'
+    : 'bg-white text-gray-900';
+
+  const titleClasses = isDarkMode
+    ? 'bg-neutral-950 text-white border-neutral-800'
+    : 'bg-gray-50 text-gray-900 border-gray-200';
+
   return (
     <div
-      className={`bg-white shadow-lg rounded-xl overflow-hidden ${className}`}
+      className={`shadow-lg rounded-xl overflow-hidden ${cardClasses} ${className}`}
     >
       {title && (
-        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800">{title}</h2>
+        <div className={`px-6 py-4 border-b ${titleClasses}`}>
+          <h2 className="text-xl font-bold">{title}</h2>
         </div>
       )}
       <div className="p-6">{children}</div>

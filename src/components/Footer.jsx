@@ -5,26 +5,21 @@ function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-800 text-gray-300 mt-12 py-8">
+    <footer className="mt-12 py-8">
       <div className="container mx-auto px-4 text-center">
         <div className="flex justify-center space-x-6 mb-4">
-          <Link to="/" className="hover:text-white">
+          <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400">
             Home
           </Link>
-          <Link to="/about" className="hover:text-white">
-            About
+          <Link to="/tasks" className="hover:text-blue-600 dark:hover:text-blue-400">
+            Tasks
           </Link>
-          {/* Add other footer links */}
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white"
-          >
-            GitHub
-          </a>
+          <Link to="/posts" className="hover:text-blue-600 dark:hover:text-blue-400">
+            Posts
+          </Link>
+          
         </div>
-        <p>&copy; {currentYear} ReactApp. All rights reserved.</p>
+        <p>&copy; {currentYear} Task Manager. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Custom hook to fetch data from a public API and manage loading/error states.
- * Uses AbortController for cleanup to prevent memory leaks.
- *
- * @param {string} url - The API endpoint URL to fetch data from.
- * @returns {{data: any[], loading: boolean, error: string | null}} - The state object.
- */
 function fetchPosts(url) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

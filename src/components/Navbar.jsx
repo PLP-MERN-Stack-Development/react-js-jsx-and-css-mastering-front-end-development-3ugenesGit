@@ -1,23 +1,25 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import PropTypes from 'prop-types';
 import { Rocket } from 'lucide-react'; // Using lucide-react for a simple icon
 
 function Navbar() {
+  const { isDarkMode, toggleTheme } = useTheme();
   // Helper function for NavLink active state
   const getNavLinkClass = ({ isActive }) => {
     return isActive
-      ? 'text-blue-600 font-bold'
-      : 'text-gray-700 hover:text-blue-600';
+      ? 'text-blue-600 font-bold dark:text-blue-400'
+      : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400';
   };
 
   return (
-    <nav className="bg-white shadow-md w-full">
+    <nav className="shadow-md w-full">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo/Brand */}
         <Link
           to="/"
-          className="flex items-center space-x-2 text-2xl font-bold text-gray-900"
+          className="flex items-center space-x-2 text-2xl font-bold"
         >
           <Rocket className="text-blue-600" size={28} />
           <span>ReactApp</span>
@@ -31,15 +33,27 @@ function Navbar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about" className={getNavLinkClass}>
-              About
+            <NavLink to="/tasks" className={getNavLinkClass} >
+              Tasks
             </NavLink>
           </li>
-          {/* Add more links here */}
+           <li>
+            <NavLink to="/posts" className={getNavLinkClass}>
+              Posts
+            </NavLink>
+          </li>
+          
+          <button
+            onClick={toggleTheme}
+            className="px-3 py-1.5 text-sm rounded border"
+            aria-label="Toggle dark mode"
+          >
+            {isDarkMode ? "Light" : "Dark"} Mode
+          </button>
         </ul>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
