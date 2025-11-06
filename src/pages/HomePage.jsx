@@ -6,10 +6,10 @@ function Home() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <Card className="bg-blue-600 text-white">
-        <h1 className="text-4xl font-bold mb-2">Welcome to Your React App!</h1>
-        <p className="text-lg text-blue-100">
-          This project is built with React, Vite, and Tailwind CSS.
+      <Card className="bg-blue-600 text-black-100 p-6">
+        <h1 className="text-3xl font-bold mb-2">Welcome</h1>
+        <p className="text-gray-600 dark:text-gray-300">
+          Use the navigation to explore Tasks and Posts.
         </p>
       </Card>
 
@@ -52,6 +52,13 @@ function Home() {
           The `Navbar` and `Footer` are now part of a `Layout` component, which
           wraps all your pages to ensure a consistent look and feel across the
           entire application.
+        </p>
+      </Card>
+
+      <Card>
+        <h1 className="text-3xl font-bold mb-2">Welcome</h1>
+        <p className="text-gray-600 dark:text-gray-300">
+          Use the navigation to explore Tasks and Posts.
         </p>
       </Card>
     </div>

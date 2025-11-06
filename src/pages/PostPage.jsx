@@ -1,142 +1,126 @@
-import React, { useState, useMemo } from 'react';
-import fetchPosts from '../api/fetchPosts';
+
+import React, { useState, useEffect, useMemo } from 'react';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import { useTheme } from '../context/ThemeContext';
+import fetchPosts from '../hooks/fetchPosts';
 
-// Configuration
-const POSTS_PER_PAGE = 10;
-const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+// A simple custom hook for fetching data (could be in src/hooks/)
+const useFetch = (url) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-/**
- * Component to display, search, and paginate fetched API posts.
- */
-function PostPage() {
-  const { isDarkMode } = useTheme();
-  const { data: allPosts, loading, error } = useFetch(API_URL);
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+};
+
+
+const PostsPage = () => {
+  const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 4;
 
-  // 1. Filter posts based on search term
-  const filteredPosts = useMemo(() => {
-    if (!searchTerm) {
-      return allPosts;
-    }
-    const lowerCaseSearch = searchTerm.toLowerCase();
-    return allPosts.filter(post => 
-      post.title.toLowerCase().includes(lowerCaseSearch) ||
-      post.body.toLowerCase().includes(lowerCaseSearch)
+  // Memoized search/filter results
+  const filteredUsers = useMemo(() => {
+    return users.filter(user =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  }, [allPosts, searchTerm]);
+  }, [users, searchTerm]);
 
-  // 2. Implement Pagination logic
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const currentPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  // Pagination logic
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
-  const goToPage = (pageNumber) => {
-    // Ensure page number is within bounds
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-      window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
-    }
-  };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // --- Rendering States ---
-
+  // Loading and Error States
   if (loading) {
-    return (
-      <Card title="Loading API Data..." className="text-center">
-        <div className="flex justify-center items-center py-8">
-            {/* Simple Tailwind Loading Spinner */}
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 dark:border-blue-300"></div>
-            <p className="ml-4 text-xl font-medium">Fetching 100 Posts...</p>
-        </div>
-      </Card>
-    );
+    return <div className="text-center text-2xl">Loading data...</div>;
   }
 
   if (error) {
-    return (
-      <Card title="API Error" className="bg-red-100 border-l-4 border-red-500 text-red-700 dark:bg-red-900 dark:text-red-100">
-        <p className="text-lg font-semibold mb-2">Failed to load data:</p>
-        <p>{error}</p>
-        <p className="mt-4 text-sm">Attempted URL: {API_URL}</p>
-      </Card>
-    );
+    return <div className="text-center text-2xl text-red-600">Error: {error}</div>;
   }
 
-  // --- Main Content ---
   return (
-    <div className="space-y-8">
-      <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-6">
-        Task 4: API Posts ({allPosts.length} total)
-      </h1>
+    <div>
+      <h1 className="text-4xl font-bold text-center mb-8">User Data</h1>
+      
+      {/* Search Input */}
+      <input
+        type="text"
+        placeholder="Search by name or email..."
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setCurrentPage(1); // Reset to first page on search
+        }}
+        className="w-full max-w-lg mx-auto block p-3 border rounded-md mb-8 dark:bg-gray-700 dark:border-gray-600"
+      />
 
-      {/* Search Feature */}
-      <Card className="p-4">
-        <input
-          type="text"
-          placeholder="Search posts by title or body..."
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1); // Reset to first page on search
-          }}
-          className="w-full p-3 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 transition"
-        />
-        {searchTerm && (
-          <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
-            Showing {filteredPosts.length} result{filteredPosts.length !== 1 ? 's' : ''} for "{searchTerm}"
-          </p>
-        )}
-      </Card>
-
-      {/* Post Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {currentPosts.map(post => (
-          <Card key={post.id} title={`Post #${post.id}: ${post.title}`} className="hover:shadow-xl transition-shadow duration-300">
-            <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">{post.body}</p>
-            <div className="mt-4 text-xs font-medium text-blue-600 dark:text-blue-400">User ID: {post.userId}</div>
+      {/* Grid Layout (Responsive) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        {currentUsers.map(user => (
+          <Card key={user.id} className="transition-all hover:shadow-lg">
+            <h2 className="text-2xl font-semibold text-blue-600 dark:text-blue-400">{user.name}</h2>
+            <p className="text-gray-600 dark:text-gray-400">{user.email}</p>
+            <p className="text-gray-500 mt-2">{user.company.name}</p>
           </Card>
         ))}
       </div>
       
-      {/* Pagination */}
+      {filteredUsers.length === 0 && (
+         <p className="text-center text-gray-500 text-xl mt-8">No users found.</p>
+      )}
+
+      {/* Pagination Controls */}
       {totalPages > 1 && (
-        <Card className="flex justify-center items-center gap-2 p-4">
-          <Button 
-            variant="secondary" 
-            onClick={() => goToPage(currentPage - 1)}
+        <div className="flex justify-center items-center space-x-4 mt-10">
+          <Button
+            onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
+            variant="secondary"
           >
             Previous
           </Button>
-
-          {/* Display current page number */}
-          <span className="px-4 py-2 font-semibold text-lg">
+          <span className="text-lg">
             Page {currentPage} of {totalPages}
           </span>
-          
-          <Button 
-            variant="secondary" 
-            onClick={() => goToPage(currentPage + 1)}
+          <Button
+            onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === totalPages}
+            variant="secondary"
           >
             Next
           </Button>
-        </Card>
+        </div>
       )}
-
-      {filteredPosts.length === 0 && !loading && !error && (
-        <Card title="No Results" className="text-center">
-            <p className="text-lg text-gray-500">No posts matched your search criteria.</p>
-        </Card>
-      )}
-
     </div>
+    
   );
-}
+};
 
-export default PostPage;
+export default PostsPage;

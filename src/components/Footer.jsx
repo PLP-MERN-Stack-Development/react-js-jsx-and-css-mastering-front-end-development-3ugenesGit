@@ -11,20 +11,15 @@ function Footer() {
           <Link to="/" className="hover:text-white">
             Home
           </Link>
-          <Link to="/about" className="hover:text-white">
-            About
+          <Link to="/Tasks" className="hover:text-white">
+            Tasks
           </Link>
-          {/* Add other footer links */}
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white"
-          >
-            GitHub
-          </a>
+          <Link to="/Posts" className="hover:text-white">
+            Posts
+          </Link>
+          
         </div>
-        <p>&copy; {currentYear} ReactApp. All rights reserved.</p>
+        <p>&copy; {currentYear} Task Manager. All rights reserved.</p>
       </div>
     </footer>
   );
