@@ -4,21 +4,21 @@ This project serves as a comprehensive learning and development environment for 
 
 ## Features
 
--   **Component-Based Architecture**: Organized and reusable UI components.
--   **React Router**: Seamless navigation between different sections of the application (Home, Tasks, Posts).
--   **Theme Management**: Dark/Light mode toggle using React Context API and `localStorage` for persistence.
--   **Custom Hooks**: Implementation of custom hooks like `useLocalStorage` for state persistence and `fetchPosts` for data fetching.
--   **Responsive Design**: Built with Tailwind CSS for a utility-first approach to styling and responsive layouts.
--   **Task Management**: A dedicated section for managing tasks.
--   **Post Display**: A section to display posts, likely fetched from an API.
+- **Component-Based Architecture**: Organized and reusable UI components.
+- **React Router**: Seamless navigation between different sections of the application (Home, Tasks, Posts).
+- **Theme Management**: Dark/Light mode toggle using React Context API and `localStorage` for persistence.
+- **Custom Hooks**: Implementation of custom hooks like `useLocalStorage` for state persistence and `fetchPosts` for data fetching.
+- **Responsive Design**: Built with Tailwind CSS for a utility-first approach to styling and responsive layouts.
+- **Task Management**: A dedicated section for managing tasks.
+- **Post Display**: A section to display posts, likely fetched from an API.
 
 ## Technologies Used
 
--   **React.js**: A JavaScript library for building user interfaces.
--   **Vite**: A fast build tool that provides an extremely fast development experience.
--   **React Router**: Declarative routing for React.
--   **Tailwind CSS**: A utility-first CSS framework for rapidly building custom designs.
--   **JavaScript (ES6+)**
+- **React.js**: A JavaScript library for building user interfaces.
+- **Vite**: A fast build tool that provides an extremely fast development experience.
+- **React Router**: Declarative routing for React.
+- **Tailwind CSS**: A utility-first CSS framework for rapidly building custom designs.
+- **JavaScript (ES6+)**
 
 ## Project Structure
 
@@ -45,11 +45,12 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 Make sure you have Node.js and npm (or yarn) installed.
 
--   [Node.js](https://nodejs.org/)
+- [Node.js](https://nodejs.org/)
 
 ### Installation
 
 1.  **Clone the repository:**
+
     ```bash
     git clone https://github.com/3ugenes/react-js-jsx-and-css-mastering-front-end-development.git
     cd react-js-jsx-and-css-mastering-front-end-development
@@ -72,11 +73,15 @@ npm run dev
 
 The application will typically be available at `http://localhost:5173` (or another port if 5173 is in use).
 
+# Live Link
+
+https://react-routes-task-manager.netlify.app/tasks
+
 ## Usage
 
--   Navigate through the application using the links in the Navbar.
--   Toggle between Light and Dark mode using the button in the Navbar.
--   Explore the Home, Tasks, and Posts pages.
+- Navigate through the application using the links in the Navbar.
+- Toggle between Light and Dark mode using the button in the Navbar.
+- Explore the Home, Tasks, and Posts pages.
 
 ## Contributing
 
