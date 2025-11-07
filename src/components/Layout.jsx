@@ -12,13 +12,13 @@ import Footer from './Footer.jsx';
  * @param {React.ReactNode} props.children - The page content to be rendered.
  */
 function Layout({ children }) {
-  const { isDarkMode } = useTheme?.() || { isDarkMode: false };
+  const { isDarkMode, toggleTheme } = useTheme();
   const baseClasses = isDarkMode
     ? 'flex flex-col min-h-screen bg-black text-white'
     : 'flex flex-col min-h-screen bg-white text-gray-900';
   return (
     <div className={baseClasses}>
-      <Navbar />
+      <Navbar isDark={isDarkMode} onToggleTheme={toggleTheme} />
       
       {/* Main content area */}
       <main className="flex-grow container mx-auto p-4 md:p-6">
